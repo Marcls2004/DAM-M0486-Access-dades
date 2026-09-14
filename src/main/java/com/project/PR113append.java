@@ -10,7 +10,7 @@ public class PR113append {
         afegirFrases(camiFitxer);
     }
 
-    // Mètode que afegeix les frases al fitxer amb UTF-8 i línia en blanc final
+    // Mètode que afegeix les frases al final del fitxer amb UTF-8; cada línia acaba amb un salt de línia
     public static void afegirFrases(String camiFitxer) {
     }
 }

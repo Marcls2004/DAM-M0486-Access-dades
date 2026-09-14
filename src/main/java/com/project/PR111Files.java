@@ -3,10 +3,11 @@ package com.project;
 public class PR111Files {
 
     public static void main(String[] args) {
-        String camiFitxer = System.getProperty("user.dir") + "/data/pr111";
-        gestionarArxius(camiFitxer);
+        String camiDirectori = System.getProperty("user.dir") + "/data/pr111";
+        gestionarArxius(camiDirectori);
     }
 
-    public static void gestionarArxius(String camiFitxer) {
+    // Rep la ruta del directori on cal crear la carpeta myFiles
+    public static void gestionarArxius(String camiDirectori) {
     }
 }

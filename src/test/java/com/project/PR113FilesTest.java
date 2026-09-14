@@ -34,10 +34,10 @@ class PR113FilesTest {
         String[] linies = contingut.split("\\R", -1);  // "\\R" gestiona qualsevol tipus de salt de línia
 
         // Comprovar el nombre de línies esperades
-        assertEquals(3, linies.length, "El fitxer hauria de tenir tres línies: dues frases i una línia en blanc al final.");
+        assertEquals(3, linies.length, "Dues frases, cadascuna acabada amb un salt de línia: en dividir per salts s'obtenen 3 elements.");
         assertEquals("I can only show you the door", linies[0], "La primera frase hauria de coincidir.");
         assertEquals("You're the one that has to walk through it", linies[1], "La segona frase hauria de coincidir.");
-        assertEquals("", linies[2], "L'última línia hauria de ser en blanc.");
+        assertEquals("", linies[2], "El fitxer ha d'acabar amb un salt de línia (i sense cap línia en blanc addicional).");
     }
 
     @Test
@@ -59,11 +59,11 @@ class PR113FilesTest {
         String[] linies = contingut.split("\\R", -1);  // "\\R" gestiona qualsevol tipus de salt de línia
 
         // Comprovar el nombre de línies esperades després de dues escriptures
-        assertEquals(5, linies.length, "El fitxer hauria de tenir cinc línies després de dos afegits: quatre frases i una línia en blanc.");
+        assertEquals(5, linies.length, "Quatre frases després de dos afegits, cadascuna acabada amb un salt de línia: 5 elements.");
         assertEquals("I can only show you the door", linies[0], "La primera frase hauria de coincidir.");
         assertEquals("You're the one that has to walk through it", linies[1], "La segona frase hauria de coincidir.");
         assertEquals("I can only show you the door", linies[2], "La tercera frase hauria de coincidir després d'afegir.");
         assertEquals("You're the one that has to walk through it", linies[3], "La quarta frase hauria de coincidir després d'afegir.");
-        assertEquals("", linies[4], "L'última línia hauria de ser en blanc.");
+        assertEquals("", linies[4], "El fitxer ha d'acabar amb un salt de línia (i sense cap línia en blanc addicional).");
     }
 }

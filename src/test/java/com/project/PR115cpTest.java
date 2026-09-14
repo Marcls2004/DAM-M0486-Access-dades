@@ -21,19 +21,11 @@ class PR115cpTest {
     Path directoriTemporal;
 
     @Test
-    void testCopiarArxiuAmbLiniesEnBlanc() throws IOException {
-        // Crear un fitxer origen dins del directori temporal
+    void testCopiarArxiuSenseSaltFinal() throws IOException {
+        // Fitxer origen amb línies en blanc intermèdies i SENSE salt de línia final
         File fitxerOrigen = new File(directoriTemporal.toFile(), "origen.txt");
-
-        // Escriure contingut al fitxer d'origen, incloent línies en blanc
-        List<String> contingutOrigen = new ArrayList<>();
-        contingutOrigen.add("Primera línia");
-        contingutOrigen.add(""); // Línia en blanc
-        contingutOrigen.add("Segona línia");
-        contingutOrigen.add(""); // Línia en blanc
-        contingutOrigen.add("Tercera línia");
-
-        Files.write(fitxerOrigen.toPath(), contingutOrigen, StandardCharsets.UTF_8);
+        String contingutOrigen = "Primera línia\n\nSegona línia\n\nTercera línia";
+        Files.writeString(fitxerOrigen.toPath(), contingutOrigen, StandardCharsets.UTF_8);
 
         // Definir la ruta del fitxer de destí dins del directori temporal
         File fitxerDesti = new File(directoriTemporal.toFile(), "desti.txt");
@@ -44,16 +36,10 @@ class PR115cpTest {
         // Comprovar que el fitxer de destí existeix
         assertTrue(fitxerDesti.exists(), "El fitxer de destí hauria d'existir");
 
-        // Llegir el contingut del fitxer de destí i comprovar que és igual al contingut del fitxer origen
-        try (BufferedReader reader = new BufferedReader(new FileReader(fitxerDesti, StandardCharsets.UTF_8))) {
-            List<String> contingutDesti = new ArrayList<>();
-            String linia;
-            while ((linia = reader.readLine()) != null) {
-                contingutDesti.add(linia);
-            }
-
-            assertEquals(contingutOrigen, contingutDesti, "El contingut del fitxer de destí hauria de ser igual al contingut d'origen, incloent les línies en blanc.");
-        }
+        // La còpia ha de ser exacta: mateixes línies (també les buides) i sense salt de línia final
+        String contingutDesti = Files.readString(fitxerDesti.toPath(), StandardCharsets.UTF_8);
+        assertEquals(contingutOrigen, contingutDesti,
+                "El destí ha de ser una còpia exacta de l'origen, sense afegir cap salt de línia final.");
     }
 
     @Test

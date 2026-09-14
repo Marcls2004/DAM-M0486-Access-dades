@@ -27,20 +27,20 @@ Versió mínima de la comanda `cat`. Rep la ruta com a argument de línia de com
 * si no existeix o no es pot llegir: `El fitxer no existeix o no és accessible.`
 
 **PR113sobreescriu** — `escriureFrases(String camiFitxer)`
-Escriu al fitxer, sobreescrivint-lo si existeix, aquestes dues línies seguides d'una línia en blanc final (és a dir, el fitxer acaba amb un salt de línia):
+Escriu al fitxer, sobreescrivint-lo si existeix, aquestes dues línies. Cada línia, també l'última, acaba amb un salt de línia (`\n`); no s'ha d'afegir cap línia en blanc addicional:
 ```
 I can only show you the door
 You're the one that has to walk through it
 ```
 
 **PR113append** — `afegirFrases(String camiFitxer)`
-Igual que l'anterior, però afegint les frases al final del fitxer sense esborrar el que ja hi havia. Executat dues vegades, el fitxer ha de tenir les quatre frases i la línia en blanc final.
+Igual que l'anterior, però afegint les frases al final del fitxer sense esborrar el que ja hi havia. Executat dues vegades sobre un fitxer buit, el fitxer ha de tenir exactament quatre línies, cadascuna acabada amb un salt de línia.
 
 **PR114linies** — `generarNumerosAleatoris(String camiFitxer)`
 Genera 10 números enters aleatoris i els escriu al fitxer, un per línia. A diferència del PR113, l'última línia **no** ha d'acabar amb salt de línia.
 
 **PR115cp** — `copiarArxiu(String rutaOrigen, String rutaDesti)`
-Versió mínima de la comanda `cp` per a fitxers de text. Rep origen i destí com a arguments. La còpia ha de conservar les línies en blanc intermèdies i el salt de línia final si l'origen en té. Si l'origen no existeix, no s'ha de crear el fitxer de destí.
+Versió mínima de la comanda `cp` per a fitxers de text. Rep origen i destí com a arguments. La còpia ha de ser exacta: conserva les línies en blanc intermèdies i el salt de línia final si l'origen en té (i no n'afegeix cap si no en té). Si l'origen no existeix, no s'ha de crear el fitxer de destí.
 
 ### Compilació i execució ###
 
@@ -55,7 +55,13 @@ Executar una classe concreta (Windows / Linux-macOS):
 ./run.sh com.project.PR110ReadFile
 ```
 
-Les classes que reben arguments (PR112cat, PR115cp) es poden executar directament amb Maven:
+Els scripts accepten també els arguments del programa:
+```bash
+.\run.ps1 com.project.PR112cat data/GestioTasques.java
+./run.sh com.project.PR115cp data/GestioTasques.java data/copia.java
+```
+
+O bé directament amb Maven:
 ```bash
 mvn compile exec:java -PrunMain "-Dexec.mainClass=com.project.PR112cat" "-Dexec.args=data/GestioTasques.java"
 mvn compile exec:java -PrunMain "-Dexec.mainClass=com.project.PR115cp" "-Dexec.args=data/GestioTasques.java data/copia.java"
@@ -73,7 +79,10 @@ mvn test -Dtest="PR113*"
 
 ### Lliurament ###
 
-Feu commit i push al vostre repositori. El workflow de GitHub Actions executa els tests a cada push: el semàfor del repositori ha de quedar en verd.
+* Treballeu en un **repositori privat** propi (a partir d'aquest punt de partida) i compartiu-lo amb l'usuari `jpala4-ieti`.
+* Feu commit i push a cada avenç. El workflow de GitHub Actions executa els tests a cada push: en el lliurament final el semàfor del repositori ha de quedar en verd.
+* Deseu la memòria (l'enunciat en PDF, amb el nom i l'enllaç al repositori emplenats) a `doc/memoria.pdf`.
+* Lliureu l'URL del repositori a Moodle.
 
 ### Visual Studio Code: resseteig de l'entorn de programació Java ###
 
