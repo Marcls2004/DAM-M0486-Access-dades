@@ -18,7 +18,7 @@ Es valora, a més del funcionament, la gestió d'excepcions (CA 1.6) i que el co
 **PR110ReadFile** — `llegirIMostrarFitxer(String camiFitxer)`
 Mostra per pantalla el contingut del fitxer línia a línia, precedint cada línia pel seu número començant per 1, amb el format `N: contingut` (dos punts i un espai). Proveu-ho amb `data/GestioTasques.java`.
 
-**PR111Files** — `gestionarArxius(String camiFitxer)`
+**PR111Files** — `gestionarArxius(String camiDirectori)`
 Dins de la ruta rebuda: crea la carpeta `myFiles`, hi crea dos fitxers buits `file1.txt` i `file2.txt`, mostra el llistat de la carpeta, reanomena `file2.txt` a `renamedFile.txt`, esborra `file1.txt` i torna a mostrar el llistat. Al final només ha de quedar `renamedFile.txt`.
 
 **PR112cat** — `mostrarContingutArxiu(String rutaArxiu)`

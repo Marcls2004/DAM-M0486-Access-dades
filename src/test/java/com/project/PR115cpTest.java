@@ -36,10 +36,13 @@ class PR115cpTest {
         // Comprovar que el fitxer de destí existeix
         assertTrue(fitxerDesti.exists(), "El fitxer de destí hauria d'existir");
 
-        // La còpia ha de ser exacta: mateixes línies (també les buides) i sense salt de línia final
+        // La còpia ha de ser exacta: mateixes línies (també les buides) i sense salt de línia final.
+        // Es normalitzen els salts (\r\n -> \n) perquè el test no depengui del sistema operatiu.
         String contingutDesti = Files.readString(fitxerDesti.toPath(), StandardCharsets.UTF_8);
-        assertEquals(contingutOrigen, contingutDesti,
-                "El destí ha de ser una còpia exacta de l'origen, sense afegir cap salt de línia final.");
+        assertEquals(contingutOrigen, contingutDesti.replace("\r\n", "\n"),
+                "El destí ha de ser una còpia exacta de l'origen (mateixes línies, també les buides).");
+        assertFalse(contingutDesti.endsWith("\n") || contingutDesti.endsWith("\r"),
+                "Si l'origen no acaba amb salt de línia, el destí tampoc.");
     }
 
     @Test

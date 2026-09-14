@@ -43,7 +43,8 @@ class PR110ReadFileTest {
             System.setOut(sortidaOriginal);
 
             // Processar la sortida capturada
-            String[] sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).split(System.lineSeparator());
+            // "\\R" accepta qualsevol salt de línia (\n o \r\n), tant si l'alumne usa println() com "\n"
+            String[] sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).split("\\R");
             assertEquals(contingutEsperat.size(), sortida.length, "El nombre de línies hauria de coincidir");
 
             // Verificar que cada línia té el format correcte
