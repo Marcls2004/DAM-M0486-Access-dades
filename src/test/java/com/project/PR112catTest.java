@@ -35,7 +35,7 @@ class PR112catTest {
         // Redirigir la sortida estàndard per capturar-la
         ByteArrayOutputStream sortidaCapturada = new ByteArrayOutputStream();
         PrintStream sortidaOriginal = System.out;
-        System.setOut(new PrintStream(sortidaCapturada));
+        System.setOut(new PrintStream(sortidaCapturada, true, StandardCharsets.UTF_8));
 
         // Executar el mètode a provar
         PR112cat.mostrarContingutArxiu(fitxer.getPath());
@@ -44,7 +44,7 @@ class PR112catTest {
         System.setOut(sortidaOriginal);
 
         // Comprovar que el contingut es mostra correctament
-        String sortida = sortidaCapturada.toString().trim();
+        String sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).trim();
         assertTrue(sortida.contains("public class GestioTasques"));
         assertTrue(sortida.contains("System.out.println(\"Hola, món!\");"));
     }
@@ -57,7 +57,7 @@ class PR112catTest {
         // Redirigir la sortida estàndard per capturar-la
         ByteArrayOutputStream sortidaCapturada = new ByteArrayOutputStream();
         PrintStream sortidaOriginal = System.out;
-        System.setOut(new PrintStream(sortidaCapturada));
+        System.setOut(new PrintStream(sortidaCapturada, true, StandardCharsets.UTF_8));
 
         // Executar el mètode a provar amb la carpeta com a path
         PR112cat.mostrarContingutArxiu(carpeta.getPath());
@@ -66,7 +66,7 @@ class PR112catTest {
         System.setOut(sortidaOriginal);
 
         // Comprovar el missatge de carpeta
-        String sortida = sortidaCapturada.toString().trim();
+        String sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).trim();
         assertEquals("El path no correspon a un arxiu, sinó a una carpeta.", sortida);
     }
 
@@ -78,7 +78,7 @@ class PR112catTest {
         // Redirigir la sortida estàndard per capturar-la
         ByteArrayOutputStream sortidaCapturada = new ByteArrayOutputStream();
         PrintStream sortidaOriginal = System.out;
-        System.setOut(new PrintStream(sortidaCapturada));
+        System.setOut(new PrintStream(sortidaCapturada, true, StandardCharsets.UTF_8));
 
         // Executar el mètode a provar amb el fitxer inexistent
         PR112cat.mostrarContingutArxiu(fitxerInexistent.getPath());
@@ -87,7 +87,7 @@ class PR112catTest {
         System.setOut(sortidaOriginal);
 
         // Comprovar el missatge de fitxer no existent
-        String sortida = sortidaCapturada.toString().trim();
+        String sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).trim();
         assertEquals("El fitxer no existeix o no és accessible.", sortida);
     }
 }

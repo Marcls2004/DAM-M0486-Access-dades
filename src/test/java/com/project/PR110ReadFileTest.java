@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 
@@ -29,12 +29,12 @@ class PR110ReadFileTest {
         );
 
         try {
-            Files.write(camiFitxer, contingutEsperat, Charset.forName("UTF-8"));
+            Files.write(camiFitxer, contingutEsperat, StandardCharsets.UTF_8);
 
             // Redirigir la sortida estàndard a un stream per capturar-la
             ByteArrayOutputStream sortidaCapturada = new ByteArrayOutputStream();
             PrintStream sortidaOriginal = System.out;
-            System.setOut(new PrintStream(sortidaCapturada));
+            System.setOut(new PrintStream(sortidaCapturada, true, StandardCharsets.UTF_8));
 
             // Executar el mètode a provar (llegirIMostrarFitxer)
             PR110ReadFile.llegirIMostrarFitxer(camiFitxer.toString());
@@ -43,7 +43,7 @@ class PR110ReadFileTest {
             System.setOut(sortidaOriginal);
 
             // Processar la sortida capturada
-            String[] sortida = sortidaCapturada.toString().split(System.lineSeparator());
+            String[] sortida = sortidaCapturada.toString(StandardCharsets.UTF_8).split(System.lineSeparator());
             assertEquals(contingutEsperat.size(), sortida.length, "El nombre de línies hauria de coincidir");
 
             // Verificar que cada línia té el format correcte

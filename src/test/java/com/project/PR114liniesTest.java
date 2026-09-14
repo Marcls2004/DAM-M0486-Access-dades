@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -46,15 +47,12 @@ class PR114liniesTest {
             }
         }
 
-        // Comprovar que l'última línia no acaba amb un salt de línia
-        try (BufferedReader reader = new BufferedReader(new FileReader(fitxer, StandardCharsets.UTF_8))) {
-            String ultimaLinia = null;
-            String linia;
-            while ((linia = reader.readLine()) != null) {
-                ultimaLinia = linia;
-            }
-            assertNotNull(ultimaLinia, "L'última línia no hauria de ser nul·la.");
-            assertFalse(ultimaLinia.endsWith("\n"), "L'última línia no hauria de tenir un salt de línia al final.");
-        }
+        // Comprovar que el fitxer NO acaba amb un salt de línia:
+        // readLine() ja treu els salts, així que cal mirar l'últim byte del fitxer directament
+        byte[] bytes = Files.readAllBytes(fitxer.toPath());
+        assertTrue(bytes.length > 0, "El fitxer no hauria d'estar buit.");
+        char ultimCaracter = (char) bytes[bytes.length - 1];
+        assertNotEquals('\n', ultimCaracter, "L'última línia no hauria de tenir un salt de línia al final.");
+        assertNotEquals('\r', ultimCaracter, "L'última línia no hauria de tenir un salt de línia al final.");
     }
 }

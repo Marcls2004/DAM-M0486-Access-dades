@@ -61,7 +61,9 @@ class PR115cpTest {
         // Crear un fitxer origen dins del directori temporal
         File fitxerOrigen = new File(directoriTemporal.toFile(), "origen.txt");
     
-        // Escriure contingut al fitxer d'origen, incloent línies en blanc i una línia en blanc al final
+        // Escriure contingut al fitxer d'origen, incloent línies en blanc.
+        // Files.write() afegeix un salt de línia després de cada element, també de l'últim,
+        // de manera que el fitxer origen acaba amb "\n". Aquest test comprova que la còpia el conserva.
         List<String> contingutOrigen = new ArrayList<>();
         contingutOrigen.add("Primera línia");
         contingutOrigen.add(""); // Línia en blanc
@@ -69,8 +71,6 @@ class PR115cpTest {
         contingutOrigen.add(""); // Línia en blanc
         contingutOrigen.add("Tercera línia");
     
-        // Aquesta línia en blanc no serà detectada amb BufferedReader.readLine() perquè és l'última
-        // Això comprova si el fitxer acaba amb un salt de línia
         Files.write(fitxerOrigen.toPath(), contingutOrigen, StandardCharsets.UTF_8);
     
         // Definir la ruta del fitxer de destí dins del directori temporal

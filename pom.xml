@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>project-name</artifactId>
+    <groupId>com.project</groupId>
+    <artifactId>ams2-m0486-pr11-practica</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -41,32 +41,6 @@
     </build>
 
     <dependencies>
-        <!-- SQLite JDBC -->
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.46.1.0</version>
-        </dependency>
-
-        <!-- JSON Library -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20240303</version>
-        </dependency>
-
-        <!-- SLF4J Dependencies -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-
         <!-- JUnit 5 API for writing tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

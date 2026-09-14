@@ -1,57 +1,83 @@
-# Exemple de guardar dades a arxius #
+# MP0486-RA1 - PR1.1 Lectura i escriptura d'arxius en Java #
 
-En aquest projecte hi ha diversos exemples de com guardar dades en Java, cap a arxius de text, binaris, XML, CSV i objectes serialitzats
+[![Java CI with Maven](https://github.com/jpala4-ieti/DAM-M0486-RA1-PR1.1-Practica-Punt-Partida-26-27/actions/workflows/maven.yml/badge.svg)](https://github.com/jpala4-ieti/DAM-M0486-RA1-PR1.1-Practica-Punt-Partida-26-27/actions/workflows/maven.yml)
 
-### Instruccions ###
+Pràctica avaluable del RA1 (persistència en fitxers). Cal completar els mètodes buits de les classes del paquet `com.project` fins que **tots els tests** de `src/test` passin. Els tests són l'especificació: llegiu-los abans de programar.
 
-Primer posar en funcionament el servidor
+Es valora, a més del funcionament, la gestió d'excepcions (CA 1.6) i que el codi estigui comentat (CA 1.7).
 
-Després executar el client i comprovar com els càlculs obtenen resultat des del servidor
+### Normes comunes ###
 
-### Compilació i funcionament ###
+* Tots els fitxers de text es llegeixen i s'escriuen amb **UTF-8** (`StandardCharsets.UTF_8`), mai amb el charset per defecte.
+* Els mètodes reben la ruta com a paràmetre i **no** fan `System.exit()`; els errors es gestionen dins del mètode.
+* Els fitxers de treball es creen dins de la carpeta `data/` del projecte (els `main` ja passen la ruta correcta). Els tests, en canvi, treballen sobre un directori temporal.
+* Cap mètode pot llençar excepcions cap enfora (`throws`) llevat que el punt de partida ja ho indiqui.
 
-Cal el 'Maven' per compilar el projecte
+### Exercicis ###
+
+**PR110ReadFile** — `llegirIMostrarFitxer(String camiFitxer)`
+Mostra per pantalla el contingut del fitxer línia a línia, precedint cada línia pel seu número començant per 1, amb el format `N: contingut` (dos punts i un espai). Proveu-ho amb `data/GestioTasques.java`.
+
+**PR111Files** — `gestionarArxius(String camiFitxer)`
+Dins de la ruta rebuda: crea la carpeta `myFiles`, hi crea dos fitxers buits `file1.txt` i `file2.txt`, mostra el llistat de la carpeta, reanomena `file2.txt` a `renamedFile.txt`, esborra `file1.txt` i torna a mostrar el llistat. Al final només ha de quedar `renamedFile.txt`.
+
+**PR112cat** — `mostrarContingutArxiu(String rutaArxiu)`
+Versió mínima de la comanda `cat`. Rep la ruta com a argument de línia de comandes i mostra el contingut. Missatges exactes en cas d'error:
+* si la ruta és una carpeta: `El path no correspon a un arxiu, sinó a una carpeta.`
+* si no existeix o no es pot llegir: `El fitxer no existeix o no és accessible.`
+
+**PR113sobreescriu** — `escriureFrases(String camiFitxer)`
+Escriu al fitxer, sobreescrivint-lo si existeix, aquestes dues línies seguides d'una línia en blanc final (és a dir, el fitxer acaba amb un salt de línia):
+```
+I can only show you the door
+You're the one that has to walk through it
+```
+
+**PR113append** — `afegirFrases(String camiFitxer)`
+Igual que l'anterior, però afegint les frases al final del fitxer sense esborrar el que ja hi havia. Executat dues vegades, el fitxer ha de tenir les quatre frases i la línia en blanc final.
+
+**PR114linies** — `generarNumerosAleatoris(String camiFitxer)`
+Genera 10 números enters aleatoris i els escriu al fitxer, un per línia. A diferència del PR113, l'última línia **no** ha d'acabar amb salt de línia.
+
+**PR115cp** — `copiarArxiu(String rutaOrigen, String rutaDesti)`
+Versió mínima de la comanda `cp` per a fitxers de text. Rep origen i destí com a arguments. La còpia ha de conservar les línies en blanc intermèdies i el salt de línia final si l'origen en té. Si l'origen no existeix, no s'ha de crear el fitxer de destí.
+
+### Compilació i execució ###
+
+Cal Maven i JDK 21.
 ```bash
-mvn clean
-mvn compile
+mvn clean compile
 ```
 
-Per executar el projecte a Windows cal
+Executar una classe concreta (Windows / Linux-macOS):
 ```bash
-.\run.ps1 com.project.Main
+.\run.ps1 com.project.PR110ReadFile
+./run.sh com.project.PR110ReadFile
 ```
 
-Per executar el projecte a Linux/macOS cal
+Les classes que reben arguments (PR112cat, PR115cp) es poden executar directament amb Maven:
 ```bash
-./run.sh com.project.Main
+mvn compile exec:java -PrunMain "-Dexec.mainClass=com.project.PR112cat" "-Dexec.args=data/GestioTasques.java"
+mvn compile exec:java -PrunMain "-Dexec.mainClass=com.project.PR115cp" "-Dexec.args=data/GestioTasques.java data/copia.java"
 ```
 
-Per fer anar classes específiques amb main:
+### Execució de tests ###
 ```bash
-.\run.ps1 com.project.EscripturaDadesPrimitives
-./run.sh com.project.EscripturaDadesPrimitives
+# Tots els tests
+mvn test
+# Un test concret
+mvn test -Dtest=PR112catTest
+# Tots els tests d'una família
+mvn test -Dtest="PR113*"
 ```
 
-### Ordre recomanat d'estudi:
+### Lliurament ###
 
-```
-    GestioArxius.java
+Feu commit i push al vostre repositori. El workflow de GitHub Actions executa els tests a cada push: el semàfor del repositori ha de quedar en verd.
 
-    EscripturaArxiuWriter.java
-    LecturaArxiuScanner.java
+### Visual Studio Code: resseteig de l'entorn de programació Java ###
 
-    EscripturaArxiuList.java
-    LecturaArxiuList.java
+Si Visual Studio Code no es comporta com esperem:
 
-    EscripturaDadesPrimitives.java
-    LecturaDadesPrimitives.java
-
-    EscripturaObjectes.java
-    LecturaObjectes.java
-
-    EscripturaLlistes.java
-    LecturaLlistes.java
-
-    GestioCSV.java
-    GestioXML.java
-```
+* Recarregar la finestra: Paleta de Comandes (**Ctrl+Maj+P**), "**Developer: Reload Window**".
+* Netejar l'espai de treball: Paleta de Comandes (**Ctrl+Maj+P**), "**Java: Clean Java Language Server Workspace**".
